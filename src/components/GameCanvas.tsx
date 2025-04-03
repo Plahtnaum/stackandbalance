@@ -59,19 +59,25 @@ const StackableObject = ({
 
   // Handle horizontal movement for active object
   useFrame((state) => {
-    if (isActive && api && api.position) {
-      const time = state.clock.getElapsedTime();
-      const x = Math.sin(time) * 2;
-      api.position.set(x, position[1], position[2]);
+    if (isActive && api) {
+      // Make sure api.position exists before calling set
+      if (api.position) {
+        const time = state.clock.getElapsedTime();
+        const x = Math.sin(time) * 2;
+        api.position.set(x, position[1], position[2]);
+      }
     }
   });
 
   // Handle user click to place object
   useEffect(() => {
     const handleClick = () => {
-      if (isActive && api && api.type) {
-        api.type.set("Dynamic");
-        onPlaced();
+      if (isActive && api) {
+        // Make sure api.type exists before calling set
+        if (api.type) {
+          api.type.set("Dynamic");
+          onPlaced();
+        }
       }
     };
 
