@@ -200,13 +200,15 @@ const GameCanvas = ({
 
   // Handle object falling off
   const handleObjectFall = () => {
-    setFallCount((prev) => prev + 1);
-
-    // Game over if too many objects fall
-    if (fallCount >= 2) {
-      setGameState("gameOver");
-      onGameOver();
-    }
+    setFallCount((prev) => {
+      const newCount = prev + 1;
+      // Game over if too many objects fall
+      if (newCount >= 2) {
+        setGameState("gameOver");
+        onGameOver();
+      }
+      return newCount;
+    });
   };
 
   // Reset game state when restarting
